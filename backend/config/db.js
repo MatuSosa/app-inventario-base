@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']); // Fuerza a Node a usar el DNS de Google
+
 const conectarDB = async () => {
   try {
     console.log('[DATABASE] Intentando conectar a MongoDB...');

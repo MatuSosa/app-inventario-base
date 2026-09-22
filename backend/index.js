@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config(); // Carga las variables del archivo .env
+require('dotenv').config();
 
-const conectarDB = require('./config/db'); // Importamos la función de conexión
+const conectarDB = require('./config/db');
 
 const app = express();
 
@@ -13,16 +13,19 @@ conectarDB();
 app.use(cors());
 app.use(express.json());
 
-// Rutas
+// Enrutadores
 const productoRoutes = require('./routes/producto.routes');
-app.use('/api/productos', productoRoutes);
+const usuarioRoutes = require('./routes/usuario.routes');
 
-// Ruta de estado
+app.use('/api/productos', productoRoutes);
+app.use('/api/usuarios', usuarioRoutes);
+
+// Endpoint de verificación
 app.get('/api/health', (req, res) => {
   res.json({ estado: 'OK', timestamp: new Date() });
 });
 
-// Inicialización del Servidor
+// Inicio del Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`[SERVER] Escuchando en el puerto http://localhost:${PORT}`);
